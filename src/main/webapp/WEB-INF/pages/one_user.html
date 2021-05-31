@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>one_user</title>
+</head>
+<body>
+<div th:text="${user.toString()}">user</div>
+<br>
+<form th:method="Delete" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
+    <input th:type="submit" value="remove user">
+</form>
+
+<p>change User:</p>
+<form th:method="PATCH" th:action="@{/admin/user/change}" th:object="${user}">
+    <label for="name">name: </label>
+    <input type="text" th:field="*{name}" id="name">
+    <br>
+    <label for="lastname">lastname: </label>
+    <input type="text" th:field="*{lastname}" id="lastname">
+    <br>
+    <label for="age">age: </label>
+    <input type="text" th:field="*{age}" id="age">
+    <br>
+    <label for="username">username: </label>
+    <input type="text" th:field="*{username}" id="username">
+    <br>
+<!--    <label for="adminRole">Admin </label>-->
+<!--    <input type=checkbox name="adminRole" id=adminRole>-->
+
+
+    <label th:hidden="true" for="id">id: </label>
+    <input th:hidden="true" type="text" th:field="*{id}" id="id">
+    <br>
+
+    <input type="submit" value="change">
+</form>
+</body>
+</html>
+
+<!--/{id}(id=${user.getId()})-->
