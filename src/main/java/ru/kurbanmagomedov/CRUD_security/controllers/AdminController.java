@@ -2,6 +2,7 @@ package ru.kurbanmagomedov.CRUD_security.controllers;
 
 import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,12 @@ import ru.kurbanmagomedov.CRUD_security.models.Role;
 import ru.kurbanmagomedov.CRUD_security.models.User;
 import ru.kurbanmagomedov.CRUD_security.service.RoleService;
 import ru.kurbanmagomedov.CRUD_security.service.UserService;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -41,8 +48,7 @@ public class AdminController {
     @GetMapping("/user/{id}")
     public String getUserByID(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("role", roleService.getRoleById(2L));
-//        model.addAttribute("userRoles", userService.getUserById(id).getRoles());
+//        model.addAttribute("role", roleService.getRoleById(2L));
         model.addAttribute("allRoles", roleService.getAllRoles());
 
         return "one_user";
@@ -56,8 +62,14 @@ public class AdminController {
     }
 
     @PatchMapping("/user/change")
-    public RedirectView changeUser(@ModelAttribute("user") User user) {
-        userService.setUser(user);
+    public RedirectView changeUser(@ModelAttribute("user") User user,
+                                   @RequestParam("allRoles") String[] roles) {
+        Set<Role> roleSet = Arrays.stream(roles)
+                .map(roleService::getRoleByName)
+                .collect(Collectors.toSet());
+
+        userService.setUser(user, roleSet);
+
         return new RedirectView("/admin/users");
     }
 
@@ -66,5 +78,6 @@ public class AdminController {
 //        System.out.println(user.getId());
         userService.removeUser(id);
         return new RedirectView("/admin/users");
+
     }
 }

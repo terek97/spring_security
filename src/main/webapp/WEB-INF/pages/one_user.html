@@ -13,7 +13,7 @@
 </form>
 
 <p>change User:</p>
-<form th:method="PATCH" th:action="@{/admin/user/change}" th:object="${user}">
+<form th:action="@{/admin/user/change}" th:method="PATCH" th:object="${user}">
     <label for="name">name: </label>
     <input type="text" th:field="*{name}" id="name">
     <br>
@@ -27,30 +27,30 @@
     <input type="text" th:field="*{username}" id="username">
     <br>
     <label for="password">password: </label>
-    <input type="password" th:field="*{password}" id="password">
+    <input type="text" th:field="*{password}" id="password">
     <br>
-<!--    <label for="adminRole">Admin </label>-->
-<!--    <input type=checkbox name="adminRole" id=adminRole>-->
+
+        <label>Roles:</label>
+        <ul>
+            <li th:each="role : ${allRoles}">
+                <input th:text="${role.getRole()}" th:value="${role.getRole()}" type="checkbox" name="allRoles">
+            </li>
+        </ul>
+<!--    th:field="*{roles}"-->
+
+<!--    <ul>-->
+<!--        <li th:each="role : ${allRoles}">-->
+<!--            <input type="checkbox" th:field="*{roles}" th:value="${role}"/>-->
+<!--            <label th:for="${#ids.prev('roles')}" th:text="${role.getRole()}">ROLE_USER</label>-->
+<!--        </li>-->
+<!--    </ul>-->
 
 
     <label th:hidden="true" for="id">id: </label>
     <input th:hidden="true" type="text" th:field="*{id}" id="id">
-<!--    <br>-->
-<!--    <label th:hidden="true" for="roles">roles: </label>-->
-<!--    <input th:hidden="true" type="text" th:field="*{roles}" id="roles">-->
-<!--    <br>-->
 
-<!--    <ul>-->
-<!--        <li th:each="role : ${allRoles}">-->
-<!--            <input type="checkbox" th:field="*{roles}" th:value="${role}" />-->
-<!--            <label th:for="${#ids.prev('roles')}"-->
-<!--                   th:text="${role}">Heating</label>-->
-<!--        </li>-->
-<!--    </ul>-->
 
     <input type="submit" value="change">
 </form>
 </body>
 </html>
-
-<!--/{id}(id=${user.getId()})-->

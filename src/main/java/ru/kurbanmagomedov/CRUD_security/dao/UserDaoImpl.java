@@ -26,7 +26,6 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<User> query = entityManager.createQuery(
                 "select user  from User user where user.id = :id", User.class);
         query.setParameter("id", id);
-        System.out.println(query.getSingleResult());
         return query.getSingleResult();
     }
 
@@ -44,8 +43,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        System.out.println(entityManager.createQuery("select user from User user",
-                User.class).getResultList());
         return entityManager.createQuery("select user from User user",
                 User.class).getResultList();
     }

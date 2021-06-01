@@ -5,6 +5,7 @@ import ru.kurbanmagomedov.CRUD_security.models.Role;
 import ru.kurbanmagomedov.CRUD_security.models.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService extends UserDetailsService {
 
@@ -13,7 +14,7 @@ public interface UserService extends UserDetailsService {
 
     User getUserById(Long id);
 
-    void setUser(User user);
+    public void setUser(User user, Set<Role> roles);
 
     void removeUser(Long id);
 
