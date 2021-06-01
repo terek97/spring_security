@@ -12,6 +12,8 @@
 <div th:each="user : ${users}">
     <a th:href="@{/admin/user/{id}(id=${user.getId()})}" th:text="${user.toString()}">userInfo</a>
 </div>
-
+<br>
+<hr>
+<a th:href="@{/admin/users/new}">new user</a>
 </body>
 </html>

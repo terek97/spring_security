@@ -22,20 +22,16 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    private final RoleDao roleDao;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.roleDao = roleDao;
     }
 
     @Override
     public void saveUser(User user) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-        addRole(user, roleDao.getRoleById(1L));
 
         userDao.saveUser(user);
     }
@@ -47,6 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void setUser(User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         userDao.setUser(user);
     }
 
@@ -63,9 +62,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addRole(User user, Role role) {
-        Set<Role> roleSet = user.getRoles();
-        roleSet.add(role);
-        user.setRoles(roleSet);
+        Set<Role> roleSet;
+
+        if (user.getRoles() != null) {
+            roleSet = user.getRoles();
+            roleSet.add(role);
+            user.setRoles(roleSet);
+        } else {
+            roleSet = new HashSet<>();
+            roleSet.add(role);
+            user.setRoles(roleSet);
+        }
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.loadUserByUsername(username);
     }
 
 

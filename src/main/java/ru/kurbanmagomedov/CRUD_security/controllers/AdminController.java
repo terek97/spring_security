@@ -1,5 +1,6 @@
 package ru.kurbanmagomedov.CRUD_security.controllers;
 
+import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,7 @@ public class AdminController {
         return "users";
     }
 
-    @GetMapping("/user/new")
+    @GetMapping("/users/new")
     public String  newUser(Model model) {
         model.addAttribute("user", new User());
         return "new";
@@ -41,13 +42,15 @@ public class AdminController {
     public String getUserByID(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("role", roleService.getRoleById(2L));
-//        System.out.println(userService.getUserById(id));
+//        model.addAttribute("userRoles", userService.getUserById(id).getRoles());
+        model.addAttribute("allRoles", roleService.getAllRoles());
 
         return "one_user";
     }
 
     @PostMapping("/user/new")
     public RedirectView createUser(@ModelAttribute("user") User user) {
+        userService.addRole(user, roleService.getRoleById(1L));
         userService.saveUser(user);
         return new RedirectView("/admin/users");
     }

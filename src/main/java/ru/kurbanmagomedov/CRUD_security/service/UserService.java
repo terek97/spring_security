@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService {
     List<User> getAllUsers();
 
     void addRole(User user, Role role);
+
+    public User getUserByUsername(String username);
 }
