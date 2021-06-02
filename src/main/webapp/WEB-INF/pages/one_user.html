@@ -30,20 +30,14 @@
     <input type="text" th:field="*{password}" id="password">
     <br>
 
-        <label>Roles:</label>
-        <ul>
-            <li th:each="role : ${allRoles}">
-                <input th:text="${role.getRole()}" th:value="${role.getRole()}" type="checkbox" name="allRoles">
-            </li>
-        </ul>
-<!--    th:field="*{roles}"-->
 
-<!--    <ul>-->
-<!--        <li th:each="role : ${allRoles}">-->
-<!--            <input type="checkbox" th:field="*{roles}" th:value="${role}"/>-->
-<!--            <label th:for="${#ids.prev('roles')}" th:text="${role.getRole()}">ROLE_USER</label>-->
-<!--        </li>-->
-<!--    </ul>-->
+    <label>Roles:</label>
+    <ul>
+        <li th:each="role : ${allRoles}">
+            <input th:checked="${userRoles.contains(role.getRole())}" th:text="${role.getRole()}"
+                   th:value="${role.getRole()}" type="checkbox" name="allRoles">
+        </li>
+    </ul>
 
 
     <label th:hidden="true" for="id">id: </label>
@@ -52,5 +46,9 @@
 
     <input type="submit" value="change">
 </form>
+
+
+<br>
+<div th:insert="footer :: copy"></div>
 </body>
 </html>

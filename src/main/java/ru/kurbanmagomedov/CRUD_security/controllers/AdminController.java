@@ -13,10 +13,7 @@ import ru.kurbanmagomedov.CRUD_security.models.User;
 import ru.kurbanmagomedov.CRUD_security.service.RoleService;
 import ru.kurbanmagomedov.CRUD_security.service.UserService;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -47,8 +44,16 @@ public class AdminController {
 
     @GetMapping("/user/{id}")
     public String getUserByID(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-//        model.addAttribute("role", roleService.getRoleById(2L));
+        User user = userService.getUserById(id);
+
+        Set<Role> set = user.getRoles();
+        List<String> list = new ArrayList<>();
+        for (Role role : set) {
+            list.add(role.getRole());
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("userRoles", list);
         model.addAttribute("allRoles", roleService.getAllRoles());
 
         return "one_user";

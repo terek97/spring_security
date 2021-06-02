@@ -8,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Set;
 
@@ -111,6 +112,10 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isActiveRole(Role role) {
+        return this.roles.contains(role);
     }
 
 
