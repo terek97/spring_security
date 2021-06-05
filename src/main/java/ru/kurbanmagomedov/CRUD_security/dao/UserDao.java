@@ -17,5 +17,5 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    public User loadUserByUsername(String s) throws UsernameNotFoundException;
+    User loadUserByUsername(String s) throws UsernameNotFoundException;
 }

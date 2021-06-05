@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kurbanmagomedov.CRUD_security.dao.RoleDao;
 import ru.kurbanmagomedov.CRUD_security.dao.UserDao;
 import ru.kurbanmagomedov.CRUD_security.models.Role;
 import ru.kurbanmagomedov.CRUD_security.models.User;
@@ -43,8 +42,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void setUser(User user, Set<Role> roles) {
+
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if (!user.getPassword().equals(userDao.getUserById(user.getId()).getPassword())) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
 
         user.setRoles(roles);
 
@@ -68,13 +70,11 @@ public class UserServiceImpl implements UserService {
 
         if (user.getRoles() != null) {
             roleSet = user.getRoles();
-            roleSet.add(role);
-            user.setRoles(roleSet);
         } else {
             roleSet = new HashSet<>();
-            roleSet.add(role);
-            user.setRoles(roleSet);
         }
+        roleSet.add(role);
+        user.setRoles(roleSet);
     }
 
     @Override

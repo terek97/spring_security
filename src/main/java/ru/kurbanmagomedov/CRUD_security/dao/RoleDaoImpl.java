@@ -1,15 +1,12 @@
 package ru.kurbanmagomedov.CRUD_security.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.kurbanmagomedov.CRUD_security.models.Role;
-import ru.kurbanmagomedov.CRUD_security.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {

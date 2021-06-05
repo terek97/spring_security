@@ -1,13 +1,10 @@
 package ru.kurbanmagomedov.CRUD_security.controllers;
 
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-import ru.kurbanmagomedov.CRUD_security.dao.RoleDao;
 import ru.kurbanmagomedov.CRUD_security.models.Role;
 import ru.kurbanmagomedov.CRUD_security.models.User;
 import ru.kurbanmagomedov.CRUD_security.service.RoleService;
@@ -80,9 +77,7 @@ public class AdminController {
 
     @DeleteMapping("/user/{id}")
     public RedirectView removeUser(@PathVariable("id") Long id) {
-//        System.out.println(user.getId());
         userService.removeUser(id);
         return new RedirectView("/admin/users");
-
     }
 }

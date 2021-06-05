@@ -8,7 +8,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Set;
 
@@ -26,9 +25,6 @@ public class User implements UserDetails {
     @Column
     @Size(min = 8, max = 45, message = "the length of password field should be from 2 to 45")
     private String password;
-
-//    @Transient
-//    private String passwordConfirm;
 
     @Column
     @NotEmpty(message = "name field should not be empty")

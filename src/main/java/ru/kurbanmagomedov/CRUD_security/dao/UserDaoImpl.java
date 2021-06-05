@@ -1,6 +1,5 @@
 package ru.kurbanmagomedov.CRUD_security.dao;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import ru.kurbanmagomedov.CRUD_security.models.User;

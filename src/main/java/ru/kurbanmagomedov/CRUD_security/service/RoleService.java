@@ -9,5 +9,5 @@ public interface RoleService {
 
     Role getRoleByName(String name);
 
-    public List<Role> getAllRoles();
+    List<Role> getAllRoles();
 }

@@ -12,7 +12,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="CRUD_application" value="e3f147ab-692d-4f30-9b8f-e91d3d471f70" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
